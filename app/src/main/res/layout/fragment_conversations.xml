@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.main.tabs_fragments.conversations.ConversationsFragment">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="model"
+            type="com.elad.chatimeapp.model.User" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chats_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/chat_list_item"
+            android:visibility="@{model.chats.size() > 0 ? View.VISIBLE : View.INVISIBLE}"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_chats"
+            android:textAlignment="center"
+            android:visibility="@{model.chats.size() == 0 ? View.VISIBLE : View.INVISIBLE}"
+            android:textSize="18sp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/chats_btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="24dp"
+            android:src="@drawable/ic_plus"
+            android:contentDescription="@string/app_name" />
+    </RelativeLayout>
+
+</layout>

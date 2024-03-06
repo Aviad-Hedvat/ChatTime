@@ -1,0 +1,107 @@
+plugins {
+    alias(libs.plugins.androidApplication)
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.dagger.hilt.android'
+    id 'com.google.firebase.crashlytics'
+}
+
+android {
+    namespace 'com.aciad.chatime'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.aciad.chatime"
+        minSdk 30
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        buildConfigField "String", "SECRET_KEY", "${properties.getProperty('SECRET_KEY')}"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        dataBinding true
+        buildConfig true
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    implementation libs.baseLibrary
+    implementation libs.firebase.firestore
+    implementation libs.library
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // UCrop
+    implementation libs.ucrop
+    implementation 'com.github.yalantis:ucrop:2.2.6'
+
+    // Lottie
+    implementation libs.lottie
+
+    // Country Code Picker
+    implementation libs.libphonenumber.android
+    implementation libs.countrycodepicker
+
+    // Glide
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+    // Firebase
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation 'com.google.firebase:firebase-auth'
+    implementation libs.firebase.crashlytics
+    implementation libs.firebase.database
+    implementation libs.firebase.messaging
+
+    // Dagger-Hilt
+    implementation libs.hilt.android
+    kapt libs.hilt.compiler
+
+    //Room
+    implementation libs.room.runtime
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version" // To use Kotlin annotation processing tool (kapt)
+
+    // Location
+    implementation libs.play.services.location
+
+    //Navigation
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
+    // Retrofit
+    implementation libs.retrofit
+
+    // JSON Converter
+    implementation libs.converter.gson
+
+    // OkHttp
+    implementation libs.okhttp
+    implementation libs.okhttp.tls
+    implementation libs.logging.interceptor
+}
